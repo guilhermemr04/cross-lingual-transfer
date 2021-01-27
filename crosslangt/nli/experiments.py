@@ -117,6 +117,7 @@ def run_nli_finetune(experiment_name: str,
                       accumulate_grad_batches=accumulate_grad,
                       max_epochs=max_epochs,
                       precision=precision,
+                      progress_bar_refresh_rate=100,
                       deterministic=True)
 
     trainer.fit(model)
