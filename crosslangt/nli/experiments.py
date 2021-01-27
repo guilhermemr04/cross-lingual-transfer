@@ -130,7 +130,7 @@ def prepare_model_for_testing(checkpoint_path: str,
                               always_use_finetuned_lexical: bool = False):
 
    # model = NLIFinetuneModel.load_from_checkpoint(checkpoint_path) mudei aqui
-    model = NLIFinetuneModel(pretrained_model='ishan/bert-base-uncased-mnli',
+    model = NLIFinetuneModel(pretrained_model=checkpoint_path,
                                  num_classes=3,
                                  train_lexical_strategy='none',
                                  train_dataset='assin2',
