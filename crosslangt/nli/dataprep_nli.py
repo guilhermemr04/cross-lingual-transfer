@@ -102,9 +102,7 @@ class ASSIN2MnliAlignedProcessor(ASSIN2Processor):
 # across languages is possible.
 NLI_DATASETS = {
     'mnli': {
-        'zip': 'https://firebasestorage.googleapis.com/v0/b/'
-               'mtl-sentence-representations.appspot.com/o/data%2FMNLI.zip'
-               '?alt=media&token=50329ea1-e339-40e2-809c-10c40afff3ce',
+        'zip': 'https://dl.fbaipublicfiles.com/glue/data/MNLI.zip',
         'train': 'MNLI/train.tsv',
         'eval': 'MNLI/dev_matched.tsv',
         'processor': MnliProcessor,
@@ -126,9 +124,7 @@ NLI_DATASETS = {
         'processor': ASSIN2MnliAlignedProcessor,
     },
     'mnli-nocontradiction': {
-        'zip': 'https://firebasestorage.googleapis.com/v0/b/'
-               'mtl-sentence-representations.appspot.com/o/data%2FMNLI.zip'
-               '?alt=media&token=50329ea1-e339-40e2-809c-10c40afff3ce',
+        'zip': 'https://dl.fbaipublicfiles.com/glue/data/MNLI.zip',
         'train': 'MNLI/train.tsv',
         'eval': 'MNLI/dev_matched.tsv',
         'processor': MnliNoContradictionProcessor,
