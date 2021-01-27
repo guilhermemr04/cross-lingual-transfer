@@ -129,7 +129,7 @@ def prepare_model_for_testing(checkpoint_path: str,
                               lexical_checkpoint: str = None,
                               always_use_finetuned_lexical: bool = False):
     try:
-        model = NLIFinetuneModel.load_from_checkpoint(checkpoint_path) mudei aqui
+        model = NLIFinetuneModel.load_from_checkpoint(checkpoint_path)
     except:
         model = NLIFinetuneModel(pretrained_model=checkpoint_path,
                                      num_classes=3,
