@@ -129,7 +129,16 @@ def prepare_model_for_testing(checkpoint_path: str,
                               lexical_checkpoint: str = None,
                               always_use_finetuned_lexical: bool = False):
 
-    model = NLIFinetuneModel.load_from_checkpoint(checkpoint_path)
+   # model = NLIFinetuneModel.load_from_checkpoint(checkpoint_path) mudei aqui
+    model = NLIFinetuneModel(pretrained_model='ishan/bert-base-uncased-mnli',
+                                 num_classes=3,
+                                 train_lexical_strategy='none',
+                                 train_dataset='assin2',
+                                 eval_dataset='assin2',
+                                 data_dir='./data',
+                                 batch_size=32,
+                                 max_seq_length=128,
+                                 tokenizer_name=None)
     model_training = model.hparams.train_lexical_strategy
 
     if model_training == 'none' or always_use_finetuned_lexical is True:
