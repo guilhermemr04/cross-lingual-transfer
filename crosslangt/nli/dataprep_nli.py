@@ -102,7 +102,7 @@ class ASSIN2MnliAlignedProcessor(ASSIN2Processor):
 # across languages is possible.
 NLI_DATASETS = {
     'mnli': {
-        'zip': 'https://dl.fbaipublicfiles.com/glue/data/MNLI.zip',
+        'zip': 'GOOGLE_DRIVE',# 'https://dl.fbaipublicfiles.com/glue/data/MNLI.zip',
         'train': 'MNLI/train.tsv',
         'eval': 'MNLI/dev_matched.tsv',
         'processor': MnliProcessor,
