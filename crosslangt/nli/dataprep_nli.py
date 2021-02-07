@@ -14,9 +14,53 @@ from transformers import PreTrainedTokenizer
 from transformers.data.processors import DataProcessor, InputExample
 from transformers.data.processors.glue import MnliProcessor
 
+#### editeeeei
+import spacy
+from spacy.lang.pt import Portuguse
+from tqdm.notebook import tqdm
+from transformers import MarianMTModel, MarianTokenizer
+
+# Model
+model_name = 'Helsinki-NLP/opus-mt-ROMANCE-en'
+marian_tokenizer = MarianTokenizer.from_pretrained(model_name)
+marian_model = MarianMTModel.from_pretrained(model_name)
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+#### editeeeei
 
 logger = logging.getLogger(__name__)
 
+#### editeeei
+def chunkstring_spacy(text):
+    chunck_sentences = []
+    nlp = Portuguese()
+    nlp.add_pipe(nlp.create_pipe('sentencizer'))
+    doc = nlp(text)
+    for sent in doc.sents:
+        chunck_sentences.append('>>en<<' + ' ' + sent.text)
+        
+    return chunck_sentences
+
+def translate(aux_sent):
+    max_length = 512
+    num_beams = 1
+
+    sentence = chunkstring_spacy(aux_sent)
+
+    #Move o modelo para a GPU
+    marian_model.to(device)
+    marian_model.eval()
+
+    tokenized_text = marian_tokenizer.prepare_seq2seq_batch(sentence, max_length=max_length)
+                        
+    translated = marian_model.generate(input_ids=tokenized_text['input_ids'].to(device), 
+                                        max_length=max_length, 
+                                        num_beams=num_beams, 
+                                        early_stopping=True, 
+                                        do_sample=False)
+                        
+    tgt_text = [marian_tokenizer.decode(t, skip_special_tokens=True) for t in translated]
+    return ' '.join(tgt_text)
+####### editeeeei
 
 class MnliNoContradictionProcessor(MnliProcessor):
     def get_train_examples(self, data_dir):
@@ -102,7 +146,7 @@ class ASSIN2MnliAlignedProcessor(ASSIN2Processor):
 # across languages is possible.
 NLI_DATASETS = {
     'mnli': {
-        'zip': 'GOOGLE_DRIVE',# 'https://dl.fbaipublicfiles.com/glue/data/MNLI.zip',
+        'zip': 'https://dl.fbaipublicfiles.com/glue/data/MNLI.zip', # 'GOOGLE_DRIVE'
         'train': 'MNLI/train.tsv',
         'eval': 'MNLI/dev_matched.tsv',
         'processor': MnliProcessor,
@@ -212,6 +256,10 @@ def extract_features(data_file_path: str, split: str, max_seq_length: int,
     available_labels = processor.get_labels()
 
     for example in tqdm(examples, desc='tokenizing examples'):
+        ###### editeeeei
+        example.text_a = translate(example.text_a)
+        example.text_b = translate(example.text_b)
+        ##### editeeeeeei
         encoded = tokenizer.encode_plus(example.text_a,
                                         example.text_b,
                                         max_length=max_seq_length,
