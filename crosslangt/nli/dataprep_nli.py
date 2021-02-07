@@ -50,7 +50,7 @@ def translate(aux_sent):
     marian_model.to(device)
     marian_model.eval()
 
-    tokenized_text = marian_tokenizer.prepare_seq2seq_batch(sentence, max_length=max_length)
+    tokenized_text = marian_tokenizer.prepare_translation_batch(sentence, max_length=max_length)
                         
     translated = marian_model.generate(input_ids=tokenized_text['input_ids'].to(device), 
                                         max_length=max_length, 
