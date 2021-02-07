@@ -255,7 +255,7 @@ def extract_features(data_file_path: str, split: str, max_seq_length: int,
     features = []
     available_labels = processor.get_labels()
 
-    for example in tqdm(examples, desc='tokenizing examples'):
+    for example in examples:#tqdm(examples, desc='tokenizing examples'):
         ###### editeeeei
         if split != 'train':
             example.text_a = translate(example.text_a)
