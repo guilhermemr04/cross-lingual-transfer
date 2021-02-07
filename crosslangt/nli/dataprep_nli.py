@@ -16,7 +16,7 @@ from transformers.data.processors.glue import MnliProcessor
 
 #### editeeeei
 import spacy
-from spacy.lang.pt import Portuguse
+from spacy.lang.pt import Portuguese
 from tqdm.notebook import tqdm
 from transformers import MarianMTModel, MarianTokenizer
 
