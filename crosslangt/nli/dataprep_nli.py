@@ -257,9 +257,9 @@ def extract_features(data_file_path: str, split: str, max_seq_length: int,
 
     for example in tqdm(examples, desc='tokenizing examples'):
         ###### editeeeei
-        if split != 'train':
-            example.text_a = translate(example.text_a)
-            example.text_b = translate(example.text_b)
+    #    if split != 'train':
+    #        example.text_a = translate(example.text_a)
+    #        example.text_b = translate(example.text_b)
         ##### editeeeeeei
         encoded = tokenizer.encode_plus(example.text_a,
                                         example.text_b,
