@@ -53,6 +53,7 @@ def download_and_extract(data_location, data_dir):
         print('Treinamento em português')
         g_drive = True
         downloaded_file = '/content/drive/MyDrive/MNLI/MNLI_full.zip'
+        print(downloaded_file)
 
     if tarfile.is_tarfile(downloaded_file):
         with tarfile.open(downloaded_file, 'r') as tar:
