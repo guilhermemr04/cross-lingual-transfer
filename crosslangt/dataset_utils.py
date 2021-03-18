@@ -47,12 +47,12 @@ def download(data_location, data_dir, force_download=False):
 
 def download_and_extract(data_location, data_dir):
     try:
-        downloaded_file = download(data_location, data_dir)
+        downloaded_file = download(data_location, data_dir) # escrever um link errado para ir pro except
         g_drive = False
     except:
         print('Treinamento em português')
         g_drive = True
-        downloaded_file = '/content/drive/MyDrive/MNLI/MNLI_BR.zip'
+        downloaded_file = '/content/drive/MyDrive/MNLI/MNLI_full.zip'
 
     if tarfile.is_tarfile(downloaded_file):
         with tarfile.open(downloaded_file, 'r') as tar:
